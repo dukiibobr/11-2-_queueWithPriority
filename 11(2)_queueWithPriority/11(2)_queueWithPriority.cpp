@@ -103,13 +103,12 @@ class QueuePriority {
 public:
 	QueuePriority() :elements(nullptr), count(0) {}
 	
-	void enqueue(string fileName,int priority) {
+	void enqueue(T fileName,int priority) {
 		int index = 0;
-		while (index<count and elements[index].priority < priority)index++;
-		index++;
+		while (index<count and elements[index].priority > priority)index++;
 
 		Element* temp = new Element[count + 1];
-		for (int i = 0; i < count; i++)
+		for (int i = 0; i < index; i++)
 		{
 			temp[i] = elements[i];
 		}
@@ -133,7 +132,7 @@ public:
 		if (!isEmpty())
 		{
 			Element first = elements[0];
-			for (int i = 0; i < count; i++)
+			for (int i = 0; i < count-1; i++)
 				elements[i] = elements[i + 1];
 
 			count--;
@@ -170,41 +169,42 @@ int main()
 	string fileName;
 	int priority;
 
-	
 
 	int choice;
-	cout << "enter your choice: " << endl << endl;
+	do
+	{
+		
+		cout << "enter your choice: " << endl << endl;
 		cout << "1-add document to queue" << endl;
 		cout << "2-print all" << endl;
 		cout << "3-exit" << endl;
 
-	cin >> choice;
-	switch (choice)
-	{
-	case 1:
-		cout << "enter your position: " << endl << endl;
-		cout << "1-guest" << endl;
-		cout << "2-admin" << endl;
-		cout << "3-manager" << endl;
-		cout << "4-director" << endl;
-		cin >> priority;
-		cout << "enter file name: "; cin >> fileName;
-
-		q.enqueue(fileName,priority);
-		break;
-	case 2:
-		while (!q.isEmpty())
+		cin >> choice;
+		switch (choice)
 		{
-			q.print();
-			cout << endl;
+		case 1:
+			cout << "enter your position: " << endl << endl;
+			cout << "1-guest" << endl;
+			cout << "2-admin" << endl;
+			cout << "3-manager" << endl;
+			cout << "4-director" << endl;
+			cin >> priority;
+			cout << "enter file name: "; cin >> fileName;
+
+			q.enqueue(fileName, priority);
+			break;
+		case 2:
+				q.print();
+				break;
+		case 3:
+				cout << "exit" << endl;
+				break;
+		default:
+			cout << "error" << endl;
 			break;
 		}
-		
-
-	default:
-		cout << "error" << endl;
-		break;
-	}
+	} while (choice!=3);
+	
 
 	
 
