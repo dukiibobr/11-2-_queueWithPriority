@@ -197,8 +197,9 @@ int main()
 		{
 			q.print();
 			cout << endl;
+			break;
 		}
-		break;
+		
 
 	default:
 		cout << "error" << endl;
